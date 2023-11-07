@@ -1,26 +1,13 @@
-package com.example.stepappv4.ui.Report;
+package com.example.stepappv4.ui.Day;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.ColorLong;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.TreeMap;
-
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -30,24 +17,36 @@ import com.anychart.charts.Cartesian;
 import com.anychart.core.cartesian.series.Column;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
-import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.example.stepappv4.R;
 import com.example.stepappv4.StepAppOpenHelper;
 import com.example.stepappv4.databinding.FragmentGalleryBinding;
-import com.example.stepappv4.R;
 
-public class ReportFragment extends Fragment {
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class DayFragment extends Fragment {
 
     public int todaySteps = 0;
     TextView numStepsTextView;
     AnyChartView anyChartView;
 
     Date cDate = new Date();
-    String current_time = new SimpleDateFormat("yyyy-MM-dd").format(cDate);
+//    String current_time = new SimpleDateFormat("yyyy-MM-dd").format(cDate);
 
-    public Map<Integer, Integer> stepsByHour = null;
+    public Map<String, Integer> stepsByHour = null;
 
     private FragmentGalleryBinding binding;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    String[] last7Days = new String[7];
+    Calendar calendar = Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,8 +55,12 @@ public class ReportFragment extends Fragment {
         View root = binding.getRoot();
 
         // Create column chart
-        anyChartView = root.findViewById(R.id.hourBarChart);
-        anyChartView.setProgressBar(root.findViewById(R.id.loadingBar));
+        try {
+            anyChartView = root.findViewById(R.id.hourBarChart);
+            anyChartView.setProgressBar(root.findViewById(R.id.loadingBar));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         Cartesian cartesian = createColumnChart();
         anyChartView.setBackgroundColor("#00000000");
@@ -74,15 +77,19 @@ public class ReportFragment extends Fragment {
     }
 
     public Cartesian createColumnChart(){
+        for (int i = 0; i < 7; i++) {
+            last7Days[i] = sdf.format(calendar.getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
         //***** Read data from SQLiteDatabase *********/
         // TODO 1 (YOUR TURN): Get the map with hours and number of steps for today
         //  from the database and assign it to variable stepsByHour
-        stepsByHour = StepAppOpenHelper.loadStepsByHour(getContext(), current_time);
+        stepsByHour = StepAppOpenHelper.loadStepsByDay(getContext(), last7Days);
         // TODO 2 (YOUR TURN): Creating a new map that contains hours of the day from 0 to 23 and
         //  number of steps during each hour set to 0
-        Map<Integer, Integer> graph_map = new TreeMap<>();
-        for(int i =0; i<=23; i++){
-            graph_map.put(i, 0); }
+        Map<String, Integer> graph_map = new TreeMap<>();
+        for(int i =0; i<=6; i++){
+            graph_map.put(last7Days[i], 0); }
 
         // TODO 3 (YOUR TURN): Replace the number of steps for each hour in graph_map
         //  with the number of steps read from the database
@@ -95,21 +102,21 @@ public class ReportFragment extends Fragment {
         // TODO 5: Create data entries for x and y axis of the graph
         List<DataEntry> data = new ArrayList<>();
 
-        for (Map.Entry<Integer,Integer> entry : graph_map.entrySet())
+        for (Map.Entry<String,Integer> entry : graph_map.entrySet())
             data.add(new ValueDataEntry(entry.getKey(), entry.getValue()));
 
         // TODO 6: Add the data to column chart and get the columns
         Column column = cartesian.column(data);
 
         //***** Modify the UI of the chart *********/
-       // TODO 7 (YOUR TURN): Change the color of column chart and its border
+        // TODO 7 (YOUR TURN): Change the color of column chart and its border
         column.fill("#1EB980");
         column.stroke("#1EB980");
 
 
         // TODO 8: Modifying properties of tooltip
         column.tooltip()
-                .titleFormat("At hour: {%X}")
+                .titleFormat("At day: {%X}")
                 .format("{%Value} Steps")
                 .anchor(Anchor.RIGHT_BOTTOM);
 
@@ -124,10 +131,11 @@ public class ReportFragment extends Fragment {
 
         // TODO 10 (YOUR TURN): Modify the UI of the cartesian
         cartesian.yAxis(0).title("Number of steps");
-        cartesian.xAxis(0).title("Hour");
+        cartesian.xAxis(0).title("Day");
         cartesian.background().fill("#00000000");
         cartesian.animation(true);
 
         return cartesian;
     }
+
 }
