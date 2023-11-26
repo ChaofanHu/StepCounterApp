@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.stepappv4.view.LabeledCircleView
+    <com.example.stepappv4.view.CaloryIntake
         android:id="@+id/labeledCircleView"
         android:layout_width="100dp"
         android:layout_height="100dp"

@@ -1,28 +1,30 @@
 package com.example.stepappv4.view;
 
+import android.view.View;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.View;
 
-public class LabeledCircleView extends View {
+
+
+public class CaloricBurn extends View {
     private Paint circlePaint;
     private Paint textPaint;
     private String labelText = "数据";
 
-    public LabeledCircleView(Context context) {
+    public CaloricBurn(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public LabeledCircleView(Context context, AttributeSet attrs) {
+    public CaloricBurn(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public LabeledCircleView(Context context, AttributeSet attrs, int defStyle) {
+    public CaloricBurn(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
@@ -30,7 +32,7 @@ public class LabeledCircleView extends View {
     private void init(AttributeSet attrs, int defStyle) {
         // 初始化画笔
         circlePaint = new Paint();
-        circlePaint.setColor(Color.BLUE); // 设置圆的颜色
+        circlePaint.setColor(Color.parseColor("#EADDFF")); // 设置圆的颜色
         circlePaint.setAntiAlias(true);
 
         textPaint = new Paint();
