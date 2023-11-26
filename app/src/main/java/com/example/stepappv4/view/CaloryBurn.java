@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 public class CaloryBurn extends View {
     private Paint circlePaint;
     private Paint textPaint;
-    private String labelText = "数据";
+    private String labelText = "消耗卡路里";
 
     public CaloryBurn(Context context) {
         super(context);

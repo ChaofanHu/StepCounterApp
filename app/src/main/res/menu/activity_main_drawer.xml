@@ -20,5 +20,9 @@
             android:id="@+id/nav_day"
             android:icon="@drawable/baseline_stacked_bar_chart_24"
             android:title="@string/menu_day" />
+        <item
+            android:id="@+id/nav_calory"
+            android:icon="@drawable/bangkok_street_food_svgrepo_com"
+            android:title="@string/calory_report" />
     </group>
 </menu>

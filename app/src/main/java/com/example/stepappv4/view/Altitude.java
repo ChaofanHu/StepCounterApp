@@ -10,7 +10,7 @@ import android.view.View;
 public class Altitude extends View {
     private Paint circlePaint;
     private Paint textPaint;
-    private String labelText = "数据";
+    private String labelText = "高度";
 
     public Altitude(Context context) {
         super(context);

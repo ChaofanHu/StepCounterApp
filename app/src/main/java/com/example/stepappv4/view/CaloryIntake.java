@@ -10,7 +10,7 @@ import android.view.View;
 public class CaloryIntake extends View {
     private Paint circlePaint;
     private Paint textPaint;
-    private String labelText = "数据";
+    private String labelText = "吃吃吃";
 
     public CaloryIntake(Context context) {
         super(context);
