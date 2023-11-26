@@ -10,24 +10,35 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="false"
         android:layout_gravity="center"
-        app:indicatorSize="304dp"
-        app:trackThickness="42dp"
-        app:trackColor="?attr/colorTertiaryContainer"
+        android:indeterminate="false"
         app:indicatorColor="?attr/colorOnTertiaryContainer"
+        app:indicatorSize="304dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="?attr/colorTertiaryContainer"
+        app:trackThickness="42dp" />
 
     <com.example.stepappv4.view.CaloryIntake
-        android:id="@+id/labeledCircleView"
+        android:id="@+id/CaloryIntake"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="579dp" />
+        android:layout_marginStart="26dp" />
+
+    <com.example.stepappv4.view.CaloryBurn
+        android:id="@+id/CaloryBurn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center" />
+
+    <com.example.stepappv4.view.Altitude
+        android:id="@+id/Altitude"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/counter"

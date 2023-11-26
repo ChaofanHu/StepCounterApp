@@ -9,22 +9,22 @@ import android.util.AttributeSet;
 
 
 
-public class CaloricBurn extends View {
+public class CaloryBurn extends View {
     private Paint circlePaint;
     private Paint textPaint;
     private String labelText = "数据";
 
-    public CaloricBurn(Context context) {
+    public CaloryBurn(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public CaloricBurn(Context context, AttributeSet attrs) {
+    public CaloryBurn(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public CaloricBurn(Context context, AttributeSet attrs, int defStyle) {
+    public CaloryBurn(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
