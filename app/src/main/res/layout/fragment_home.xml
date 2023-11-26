@@ -21,6 +21,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.stepappv4.view.LabeledCircleView
+        android:id="@+id/labeledCircleView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="579dp" />
+
     <TextView
         android:id="@+id/counter"
         android:layout_width="wrap_content"
